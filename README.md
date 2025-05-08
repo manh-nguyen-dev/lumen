@@ -11,6 +11,7 @@
 - 💾 **Local (offline) note storage**
 - ✨ **Use various themes** for personalization
 - 📅 **Overview of focus timer and notes history**
+- 📋 **Track daily habits** with a simple and clean habit screen
 
 ---
 
@@ -97,13 +98,19 @@ Here are some screenshots of Lumen app:
 
 3. Install dependencies:
    ```bash
-   flutter pub get
+   fvm flutter pub get
    ```
 
 4. To generate the necessary code for Hive:
    ```bash
-   flutter packages pub run build_runner build
+   fvm flutter packages pub run build_runner build
    ```
+If you run into conflicts (e.g., after modifying models):
+   ```bash
+   fvm flutter packages pub run build_runner build --delete-conflicting-outputs
+   ```
+
+💡 Tip: It's recommended to always use --delete-conflicting-outputs after updating models to avoid outdated or conflicting generated files.
 
 ---
 
