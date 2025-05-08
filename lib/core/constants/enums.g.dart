@@ -54,3 +54,52 @@ class NoteTypeAdapter extends TypeAdapter<NoteType> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+class FrequentAdapter extends TypeAdapter<Frequent> {
+  @override
+  final int typeId = 5;
+
+  @override
+  Frequent read(BinaryReader reader) {
+    switch (reader.readByte()) {
+      case 0:
+        return Frequent.daily;
+      case 1:
+        return Frequent.weekly;
+      case 2:
+        return Frequent.monthly;
+      case 3:
+        return Frequent.yearly;
+      default:
+        return Frequent.daily;
+    }
+  }
+
+  @override
+  void write(BinaryWriter writer, Frequent obj) {
+    switch (obj) {
+      case Frequent.daily:
+        writer.writeByte(0);
+        break;
+      case Frequent.weekly:
+        writer.writeByte(1);
+        break;
+      case Frequent.monthly:
+        writer.writeByte(2);
+        break;
+      case Frequent.yearly:
+        writer.writeByte(3);
+        break;
+    }
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FrequentAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}

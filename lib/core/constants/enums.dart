@@ -48,3 +48,34 @@ extension NoteTypeLabel on NoteType {
 
 final List<NoteType> noteTypes = NoteType.values;
 
+
+@HiveType(typeId: 5)
+enum Frequent {
+  @HiveField(0)
+  daily,
+
+  @HiveField(1)
+  weekly,
+
+  @HiveField(2)
+  monthly,
+
+  @HiveField(3)
+  yearly,
+}
+
+extension FrequentExtension on Frequent {
+  String get label {
+    switch (this) {
+      case Frequent.daily:
+        return 'Hàng ngày';
+      case Frequent.weekly:
+        return 'Hàng tuần';
+      case Frequent.monthly:
+        return 'Hàng tháng';
+      case Frequent.yearly:
+        return 'Hàng năm';
+    }
+  }
+}
+

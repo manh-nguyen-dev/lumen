@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lumen/core/utils/logger.dart';
 import 'package:lumen/core/di/injection_container.dart' as di;
+import 'package:lumen/features/habit/models/habit_model.dart';
 
 import '../core/constants/app_constants.dart';
 import '../core/constants/enums.dart';
@@ -61,9 +62,12 @@ Future<void> _initializeHive() async {
     Hive.registerAdapter(NoteTypeAdapter());
     Hive.registerAdapter(NoteModelAdapter());
     Hive.registerAdapter(TimerHistoryModelAdapter());
+    Hive.registerAdapter(HabitModelAdapter());
+    Hive.registerAdapter(FrequentAdapter());
 
     await Hive.openBox<NoteModel>(AppConstants.notesBox);
     await Hive.openBox<TimerHistoryModel>(AppConstants.timerHistoryBox);
+    await Hive.openBox<HabitModel>(AppConstants.habitsBox);
 
     AppLogger.i('Hive initialized successfully');
   } catch (e, stack) {

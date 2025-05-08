@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../features/calendar/screens/calendar_screen.dart';
+import '../../features/habit/screens/habit_screen.dart';
 import '../../features/notes/screens/notes_screen.dart';
 import '../../features/settings/screens/settings_screen.dart';
 import '../../features/timer/screens/timer_screen.dart';
@@ -27,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _screens = [
     const NotesScreen(),
     const TimerScreen(),
+    HabitScreen(),
     const CalendarScreen(),
     const SettingsScreen(),
   ];
@@ -55,6 +57,11 @@ class _HomeScreenState extends State<HomeScreen> {
             label: '',
             icon: Icon(LucideIcons.timer),
             selectedIcon: Icon(Icons.timer),
+          ),
+          NavigationDestination(
+            label: '',
+            icon: Icon(LucideIcons.layoutList),
+            selectedIcon: Icon(LucideIcons.layoutList),
           ),
           NavigationDestination(
             label: '',

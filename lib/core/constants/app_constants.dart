@@ -6,4 +6,5 @@ class AppConstants {
   // Hive box names
   static const String notesBox = 'notes_box';
   static const String timerHistoryBox = 'timer_history_box';
+  static const String habitsBox = 'habits_box';
 }
