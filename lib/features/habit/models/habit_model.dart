@@ -39,7 +39,7 @@ class HabitModel extends HiveObject {
   final DateTime? endDate;
 
   @HiveField(10)
-  int completedDays;
+  final List<String> completedDates;
 
   HabitModel({
     String? id,
@@ -52,7 +52,7 @@ class HabitModel extends HiveObject {
     this.repeatOn,
     DateTime? startDate,
     this.endDate,
-    this.completedDays = 0,
+    this.completedDates = const [],
   }) : id = id ?? Uuid().v4(),
        startDate = startDate ?? DateTime.now();
 

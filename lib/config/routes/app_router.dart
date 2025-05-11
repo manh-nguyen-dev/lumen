@@ -5,8 +5,11 @@ import 'package:lumen/core/screens/not_found_screen.dart';
 
 import '../../core/screens/premium_screen.dart';
 import '../../core/screens/theme_customization_screen.dart';
+import '../../features/habit/screens/habit_detail_screen.dart';
 import '../../features/notes/models/notes_model.dart';
 import '../../features/notes/screens/note_detail_screen.dart';
+import '../../features/habit/models/habit_model.dart';
+
 
 /// App router configuration
 GoRouter defaultTransitionRoute() {
@@ -31,6 +34,13 @@ GoRouter defaultTransitionRoute() {
         builder: (context, state) {
           final note = state.extra as NoteModel;
           return NoteDetailScreen(note: note);
+        },
+      ),
+      GoRoute(
+        path: Routes.habitDetail,
+        builder: (context, state) {
+          final habit = state.extra as HabitModel;
+          return HabitDetailScreen(habit: habit);
         },
       ),
     ],

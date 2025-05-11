@@ -10,4 +10,5 @@ class Routes {
   static const String premium = '/premium';
   static const String timer = '/timer';
   static const String themeCustomization = '/theme-customization';
+  static const String habitDetail = '/habit_detail';
 }

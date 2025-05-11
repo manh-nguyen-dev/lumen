@@ -1,13 +1,14 @@
-import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../models/habit_model.dart';
+import '../bloc/habit_bloc.dart';
+import '../bloc/habit_event.dart';
+import '../bloc/habit_state.dart';
 import '../../../core/theme/colors.dart';
 import '../widgets/habit_grid_item_widget.dart';
 import '../widgets/habit_list_item_widget.dart';
-import '../../../core/constants/app_constants.dart';
 
 class HabitScreen extends StatefulWidget {
   const HabitScreen({super.key});
@@ -18,6 +19,12 @@ class HabitScreen extends StatefulWidget {
 
 class _HabitScreenState extends State<HabitScreen> {
   bool isGridView = false;
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<HabitBloc>().add(LoadHabits());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +46,18 @@ class _HabitScreenState extends State<HabitScreen> {
           ),
         ],
       ),
-      body: FutureBuilder<List<HabitModel>>(
-        future: _loadHabits(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+      body: BlocBuilder<HabitBloc, HabitState>(
+        builder: (context, state) {
+          if (state is HabitLoading) {
             return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('Không có thói quen nào.'));
-          } else {
-            final habits = snapshot.data!;
+          } else if (state is HabitError) {
+            return Center(child: Text('Error: ${state.message}'));
+          } else if (state is HabitLoaded) {
+            final habits = state.habits;
+
+            if (habits.isEmpty) {
+              return const Center(child: Text('Không có thói quen nào.'));
+            }
 
             if (isGridView) {
               return MasonryGridView.count(
@@ -73,13 +81,10 @@ class _HabitScreenState extends State<HabitScreen> {
               );
             }
           }
+
+          return const Center(child: Text('No habits found.'));
         },
       ),
     );
-  }
-
-  Future<List<HabitModel>> _loadHabits() async {
-    final habitBox = await Hive.openBox<HabitModel>(AppConstants.habitsBox);
-    return habitBox.values.toList();
   }
 }

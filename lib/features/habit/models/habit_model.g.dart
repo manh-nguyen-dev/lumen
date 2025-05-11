@@ -27,7 +27,7 @@ class HabitModelAdapter extends TypeAdapter<HabitModel> {
       repeatOn: (fields[7] as List?)?.cast<int>(),
       startDate: fields[8] as DateTime?,
       endDate: fields[9] as DateTime?,
-      completedDays: fields[10] as int,
+      completedDates: fields[10] is List ? List<String>.from(fields[10]) : <String>[],
     );
   }
 
@@ -56,7 +56,7 @@ class HabitModelAdapter extends TypeAdapter<HabitModel> {
       ..writeByte(9)
       ..write(obj.endDate)
       ..writeByte(10)
-      ..write(obj.completedDays);
+      ..write(obj.completedDates);
   }
 
   @override
